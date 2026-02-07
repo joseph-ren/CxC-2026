@@ -1,7 +1,10 @@
 from flask import Flask, render_template, request
-from listings import listings
+import sqlite3
 
 app = Flask(__name__)
+
+def get_db():
+    return sqlite3.connect("database.db")
 
 def match_score(user_amenities, listing_amenities):
     return len(set(user_amenities) & set(listing_amenities))
@@ -15,18 +18,32 @@ def home():
         location = request.form["location"].lower()
         amenities = request.form.getlist("amenities")
 
-        filtered = [
-            l for l in listings
-            if l["price"] <= budget and l["location"].lower() == location
-        ]
+        conn = get_db()
+        c = conn.cursor()
 
-        ranked = sorted(
-            filtered,
+        c.execute("""
+            SELECT title, price, location, amenities
+            FROM listings
+            WHERE price <= ? AND LOWER(location) = ?
+        """, (budget, location))
+
+        rows = c.fetchall()
+        conn.close()
+
+        listings = []
+        for r in rows:
+            listings.append({
+                "title": r[0],
+                "price": r[1],
+                "location": r[2],
+                "amenities": r[3].split(",")
+            })
+
+        results = sorted(
+            listings,
             key=lambda l: match_score(amenities, l["amenities"]),
             reverse=True
         )
-
-        results = ranked
 
     return render_template("index.html", results=results)
 
