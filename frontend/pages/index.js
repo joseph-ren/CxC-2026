@@ -5,8 +5,26 @@ const AMENITY_OPTIONS = ['wifi', 'parking', 'pool', 'gym', 'pet-friendly']
 function Header() {
   return (
     <header className="max-w-4xl mx-auto py-8 px-4">
-      <h1 className="text-3xl font-bold">Listings</h1>
-      <p className="text-gray-600 mt-2">Search by budget, location, and amenities.</p>
+      <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center gap-4">
+          <div className="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-br from-indigo-600 to-pink-500 text-white shadow-md ring-1 ring-white/20">
+            <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+              <path d="M4 12c0-4.418 3.582-8 8-8s8 3.582 8 8-3.582 8-8 8a8 8 0 01-8-8z" stroke="currentColor" strokeWidth="0" fill="currentColor" opacity="0.06" />
+              <path d="M8.5 13.5c.5 1 1.75 2.25 3.75 2.25 2.25 0 4-1.75 4-4 0-2-1.5-3.25-3.5-3.25-1.25 0-2.25.5-2.75 1.25" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M9 9.5c.5-.5 1.25-1 2.5-1" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </div>
+
+          <div>
+            <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 leading-tight">Subletly</h1>
+            <p className="text-sm md:text-base text-gray-600 mt-1">Find short-term rooms and sublets — tailored to your needs.</p>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <span className="inline-flex items-center px-3 py-1 rounded-full bg-yellow-50 text-yellow-800 text-sm font-medium border border-yellow-100">Beta</span>
+        </div>
+      </div>
     </header>
   )
 }
